@@ -1,5 +1,5 @@
 from abc import abstractmethod
-
+import numpy as np
 
 class Termination:
 
@@ -26,6 +26,8 @@ class Termination:
             progress = 1.0
         else:
             progress = self._update(algorithm)
+            if np.isnan(progress):
+                progress = 0
             assert progress >= 0.0, "Invalid progress was set by the TerminationCriterion."
 
         self.perc = progress
